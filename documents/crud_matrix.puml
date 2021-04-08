@@ -1,4 +1,16 @@
 @startuml crud
 
+title
+  
+  =CRUD MATRIX
+  
+  |             |= USER |= DATA |
+  |= 사용자 추가   |     C |       |
+  |= 사용자 삭제   |     D |   *D  |
+  |= 사용자 기록   |     R |    C  |
+  
+end title
+
+
 
 @enduml

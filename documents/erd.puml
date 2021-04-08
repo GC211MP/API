@@ -1,4 +1,33 @@
-@startuml crud
+@startuml er-diagram
+left to right direction
 
+title
+
+=[Server] Entity Relationship Diagram
+
+end title
+
+map USER {
+    <color:red>**(PK)**</color> ID => int
+    NAME => varchar(256)
+    C_DATE => Date()
+    PASSWORD => varchar(256) Encrypted
+}
+
+map DATA {
+    <color:red>**(PK)**</color> IDX => int
+    <color:blue>**(FK)**</color> ID => int
+    STAGE_ID => int not null
+    ELAPSED_TIME => int not null (달린 시간을 초로 저장)
+    ? => Float
+}
+
+' select * from (select id, name from user) as tmp1
+'   join data as data on tmp1.id == data.id;
+
+USER ||..o{ DATA
+
+'릴레이션 표시 방법
+'동적 태그를 어떻게 표현할지?
 
 @enduml
