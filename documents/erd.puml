@@ -11,10 +11,11 @@ title
 end title
 
 map USER {
-    <color:red>**(PK)**</color> ID => int
-    NAME => varchar(256)
-    C_DATE => Date()
-    PASSWORD => varchar(256) Encrypted
+    <color:red>**(PK)**</color> idx => int (AI)
+    user_id => varchar(32) (NN)
+    user_name => varchar(32) (NN)
+    c_date => Date() (DN)
+    user_password => varchar(128) (NN)
 }
 
 map DATA {
