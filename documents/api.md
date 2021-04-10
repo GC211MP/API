@@ -1,5 +1,26 @@
 # API Document
 
+## TEST
+GET: `/api/test`
+ - 테스트용 API
+ - body
+    ```
+    {
+        "method": "GET"
+        "result": "This is test results."
+    }
+    ```
+
+POST: `/api/test`
+ - 테스트용 API
+ - body
+    ```
+    {
+        "method": "POST"
+        "result": "This is test results."
+    }
+    ```
+
 ## USER
 
 DELETE: `/api/user?uid=[유저아이디]`
