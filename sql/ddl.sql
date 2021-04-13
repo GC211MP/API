@@ -17,6 +17,7 @@ create table DATA (
     user_idx int not null,
     stage_id int not null,
     elapsed_time int not null,
+    -- ??
 
     PRIMARY KEY (idx),
     FOREIGN KEY (user_idx) REFERENCES USER(idx)
