@@ -10,28 +10,25 @@ title
 
 end title
 
-map USER {
-    <color:red>**(PK)**</color> idx => int (AI)
-    user_id => varchar(32) (NN)
-    user_name => varchar(32) (NN)
-    c_date => Date() (DN)
-    user_password => varchar(128) (NN)
+map user {
+    <color:red>**(PK)**</color> idx => int
+    user_id => varchar(32)
+    user_name => varchar(32)
+    c_date => DCURRENT_TIMESTAMP
+    user_password => varchar(128)
 }
 
-map DATA {
-    <color:red>**(PK)**</color> IDX => int
-    <color:blue>**(FK)**</color> ID => int
-    STAGE_ID => int not null
-    ELAPSED_TIME => int not null (달린 시간을 초로 저장)
+map data {
+    <color:red>**(PK)**</color> idx => int
+    <color:blue>**(FK)**</color> user_idx => int
+    stage_id => int
+    elapsed_time => int (달린 시간을 초로 저장)
     ? => Float
 }
 
 ' select * from (select id, name from user) as tmp1
 '   join data as data on tmp1.id == data.id;
 
-USER ||..o{ DATA
-
-'릴레이션 표시 방법
-'동적 태그를 어떻게 표현할지?
+user ||..o{ data
 
 @enduml
