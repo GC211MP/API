@@ -65,7 +65,7 @@
     ```
     [
         {   
-            "c_data": DateTime(),
+            "c_date": DateTime(),
             "user_name": "",
             "stage_id": 0,
             "elapsed_time": 0,
