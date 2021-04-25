@@ -2,7 +2,7 @@
 
 ## USER
 
-GET: `/api/user?uid=[user_id]`
+**GET: `/user?uid=[user_id]`**
  - Load user data
  - parameter
    - `uid`: (mandatory) user id to get data
@@ -15,27 +15,30 @@ GET: `/api/user?uid=[user_id]`
     }
     ```
 
+<br>
 
-POST: `/api/user`
+**POST: `/user`**
  - Add user (Create user account)
  - Check each user_id and user_name is unique
  - body
     ```
     {
-        "user_id": "",
-        "user_name": "",
-        "user_password": "",
+        "user_id": "",         // mandatory
+        "user_name": "",       // mandatory
+        "user_password": "",   // mandatory
     }
     ```
  - response
    - success: `200` / error: `400`
 
+<br>
 
-PATCH: `/api/user`
+**PATCH: `/user`**
  - Modify user data
  - body
     ```
     {
+        "user_id": "",         // mandatory
         "user_name": "",
         "user_password": "",
     }
@@ -43,16 +46,17 @@ PATCH: `/api/user`
  - response
    - success: `200` / error: `400`
 
+<br>
 
-DELETE: `/api/user?uid=[user_id]`
+**DELETE: `/user?uid=[user_id]`**
  - Delete User Data
  - No plan to make this API
 
-___
+<br><br><br>
 
 ## DATA
 
-GET: `/api/data?c=""&o=""`
+**GET: `/data?c=""&o=""`**
  - Give all data of rank table
  - parameter
    - `c`: (mandatory) column to order
@@ -70,21 +74,27 @@ GET: `/api/data?c=""&o=""`
     ]
     ```
 
-POST: `/api/data`
+<br>
+
+**POST: `/data`**
  - Add user record data
  - body
     ```
     {
-        "user_idx": 0,
-        "stage_id": 0,
-        "elapsed_time": 0,
+        "user_idx": 0,         // mandatory
+        "stage_id": 0,         // mandatory
+        "elapsed_time": 0,     // mandatory
     }
     ```
 
-PATCH: `TBD`
+<br>
+
+**PATCH: `TBD`**
  - No plan to make this API
  - Rank data is permanently stored on the server
 
-DELETE: `TBD`
+<br>
+
+**DELETE: `TBD`**
  - No plan to make this API
  - Rank data is permanently stored on the server
