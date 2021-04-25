@@ -1,18 +1,32 @@
 var express = require('express');
 var router = express.Router();
 
-/* GET home page. */
-router.get('/test', function(req, res, next) {
-  // res.render('index', { title: 'Express' });
-  res.json({
-    "method": "GET",
-    "result": "This is test result."
+// Load User Data
+router.get('/user', function(req, res, next) {
+
+  conn.query("select * from user", (err, rows, fields) => {
+
+    console.log(rows)
+
+    res.json({
+      "method": "GET",
+      "result": "This is test result."
+    })
   })
 });
 
-router.post('/test', (req,res,next) =>{
+// Add User
+router.post('/user', (req,res,next) =>{
   res.json({
     "method": "POST",
+    "result": "This is test result."
+  })
+})
+
+// Modify User
+router.patch("/user", (req, res, next) => {
+  res.json({
+    "method": "PATCH",
     "result": "This is test result."
   })
 })

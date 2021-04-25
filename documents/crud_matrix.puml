@@ -7,15 +7,12 @@ title
   =CRUD MATRIX
 
   |                   |= USER |= DATA |
-  |= Add User         |     C |       |
-  |= Load User Data   |     R |       |
-  |= Modify Name      |     U |       |
-  |= Modify Password  |     U |       |
-  |= Load rank data   |       |    R  |
-  |= Update rank data |     R |    C  |
+  |= Add User                     |     C |       |
+  |= Load User Data               |     R |       |
+  |= Modify User name or password |     U |       |
+  |= Load rank data               |       |    R  |
+  |= Enroll rank data             |     R |    C  |
   
 end title
-
-
 
 @enduml

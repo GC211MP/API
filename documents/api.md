@@ -1,54 +1,85 @@
 # API Document
 
-## TEST
-GET: `/api/test`
- - 테스트용 API
- - body
-    ```
-    {
-        "method": "GET"
-        "result": "This is test results."
-    }
-    ```
-
-POST: `/api/test`
- - 테스트용 API
- - body
-    ```
-    {
-        "method": "POST"
-        "result": "This is test results."
-    }
-    ```
-
 ## USER
 
-DELETE: `/api/user?uid=[유저아이디]`
- - 유저 삭제
- - `회원 세션 유지를 어떻게 할지..?`
+GET: `/api/user?uid=[user_id]`
+ - Load user data
+ - response
+    ```
+    {
+        "user_id": "",
+        "user_idx": 0, // Use to get rank data
+        "user_name": "",
+    }
+    ```
 
-GET: `/api/user?uid=[유저아이디]`
- - 사용자 정보 확인
 
-POST: `/api/user?uid=[유저아이디]`
- - 사용자 추가 (계정 생성)
+POST: `/api/user`
+ - Add user (Create user account)
+ - Check each user_id and user_name is unique
+ - body
+    ```
+    {
+        "user_id": "",
+        "user_name": "",
+        "user_password": "",
+    }
+    ```
+ - response
+   - success: `200` / error: `400`
 
-PATCH: 미구현
- - 아이디 및 비밀번호 변경
+
+PATCH: `/api/user`
+ - Modify user data
+ - body
+    ```
+    {
+        "user_name": "",
+        "user_password": "",
+    }
+    ```
+ - response
+   - success: `200` / error: `400`
+
+
+DELETE: `/api/user?uid=[user_id]`
+ - Delete User Data
+ - No plan to make this API
 
 ___
 
-## 기록 관리
+## DATA
 
-GET: `/api/data?[어떠한 조건으로 정보를 받을지?]`
- - 사용자 랭킹 정보 조회
+GET: `/api/data`
+ - Give all data of rank table
+ - response
+    ```
+    [
+        {
+            "user_id": "",
+            "stage_id": 0,
+            "elapsed_time": 0,
+        },
+        ...
+    ]
+    ```
 
-POST: `/api/data?stage_id=[스테이지 번호]&elapsed_time=[달린 총 시간(초)&[또 추가할 내용..?]]`
- - 사용자 랭킹 정보 추가
+POST: `/api/data`
+ - Add user record data
+ - body
+    ```
+    {
+        "user_idx": 0,
+        "stage_id": 0,
+        "elapsed_time": 0,
+    }
+    ```
 
-PATCH: 미구현
- - 랭킹은 최초 등록 후 영구적으로 유지됨
+PATCH: `TBD`
+ - No plan to make this API
+ - Rank data is permanently stored on the server
 
-DELETE: 미구현
- - 랭킹은 최초 등록 후 영구적으로 유지됨
+DELETE: `TBD`
+ - No plan to make this API
+ - Rank data is permanently stored on the server
 
