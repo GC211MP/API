@@ -8,7 +8,10 @@ title
 
   |                   |= USER |= DATA |
   |= Add User         |     C |       |
-  |= User...          |       |       |
+  |= Load User Data   |     R |       |
+  |= Modify Name      |     U |       |
+  |= Modify Password  |     U |       |
+  |= Load rank data   |       |    R  |
   |= Update rank data |     R |    C  |
   
 end title
