@@ -60,8 +60,9 @@ GET: `/api/data?c=""&o=""`
  - response
     ```
     [
-        {
-            "user_id": "",
+        {   
+            "c_data": DateTime(),
+            "user_name": "",
             "stage_id": 0,
             "elapsed_time": 0,
         },

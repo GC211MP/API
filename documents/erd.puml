@@ -21,6 +21,7 @@ map user {
 map data {
     <color:red>**(PK)**</color> idx => int
     <color:blue>**(FK)**</color> user_idx => int
+    c_date => DCURRENT_TIMESTAMP
     stage_id => int
     elapsed_time => int (달린 시간을 초로 저장)
     ? => Float
