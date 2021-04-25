@@ -4,6 +4,8 @@
 
 GET: `/api/user?uid=[user_id]`
  - Load user data
+ - parameter
+   - `uid`: (mandatory) user id to get data
  - response
     ```
     {
@@ -50,8 +52,11 @@ ___
 
 ## DATA
 
-GET: `/api/data`
+GET: `/api/data?c=""&o=""`
  - Give all data of rank table
+ - parameter
+   - `c`: (mandatory) column to order
+   - `o`: (mandatory) "desc" or "asc" (descending, ascending order)
  - response
     ```
     [
@@ -82,4 +87,3 @@ PATCH: `TBD`
 DELETE: `TBD`
  - No plan to make this API
  - Rank data is permanently stored on the server
-

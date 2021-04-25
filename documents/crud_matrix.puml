@@ -6,7 +6,7 @@ title
   
   =CRUD MATRIX
 
-  |                   |= USER |= DATA |
+  |                               |= USER |= DATA |
   |= Add User                     |     C |       |
   |= Load User Data               |     R |       |
   |= Modify User name or password |     U |       |
