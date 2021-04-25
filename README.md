@@ -12,3 +12,9 @@
 ## CRUD Matrix
 
 ![CRUD Matrix](https://www.plantuml.com/plantuml/proxy?src=https://raw.githubusercontent.com/GC211MP/API/main/documents/crud_matrix.puml)
+
+
+## Server to Service
+ - pm2
+ - forever
+ - make daemon & autorun when reboot system
