@@ -20,8 +20,8 @@ create table data (
     c_date TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     stage_id int not null,
     elapsed_time int not null,
-    -- ??
-
+    calorie int not null,
+    score int not null,
     PRIMARY KEY (idx),
     FOREIGN KEY (user_idx) REFERENCES user(idx)
 );

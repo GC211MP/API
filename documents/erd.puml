@@ -23,8 +23,9 @@ map data {
     <color:blue>**(FK)**</color> user_idx => int
     c_date => DCURRENT_TIMESTAMP
     stage_id => int
-    elapsed_time => int (달린 시간을 초로 저장)
-    ? => Float
+    distance => int (Metric, Meter)
+    calorie => int (kcal)
+    score => int
 }
 
 ' select * from (select id, name from user) as tmp1
