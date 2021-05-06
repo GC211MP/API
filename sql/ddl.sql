@@ -19,7 +19,7 @@ create table data (
     user_idx int not null,
     c_date TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     stage_id int not null,
-    elapsed_time int not null,
+    distance int not null,
     calorie int not null,
     score int not null,
     PRIMARY KEY (idx),
