@@ -79,38 +79,170 @@ router.get('/', async (req, res, next) => {
 
 
 
+
+
+
+
+
+
+// get total distance
+router.get('/distance', (req, res, next) => {
+
+	var uidx = -1
+  var stage = -1
+
+  if(!Object.keys(req.query).includes("uidx")){
+    error(res, "query error")
+    return
+  }
+  if(Object.keys(req.query).includes("stage")){
+    stage = req.query.stage
+  }
+
+	uidx = req.query.uidx
+
+  sqlQuery = `select sum(distance) result from data where user_idx=${uidx}`
+  if(stage != -1)
+    sqlQuery += ` and stage_id=${stage}`
+  
+  console.log(sqlQuery)
+	conn.query(sqlQuery, (err, rows, fields) => {
+    if(err){
+      console.log(err)
+      error(res, "sql error")
+      return
+    }
+    
+    console.log(rows)
+    res.json(rows[0].result)
+    return
+	})
+})
+
+
+// get total calorie
+router.get('/calorie', (req, res, next) => {
+
+	var uidx = -1
+  var stage = -1
+
+  if(!Object.keys(req.query).includes("uidx")){
+    error(res, "query error")
+    return
+  }
+  if(Object.keys(req.query).includes("stage")){
+    stage = req.query.stage
+  }
+
+	uidx = req.query.uidx
+
+  sqlQuery = `select sum(calorie) result from data where user_idx=${uidx}`
+  if(stage != -1)
+    sqlQuery += ` and stage_id=${stage}`
+  
+  console.log(sqlQuery)
+	conn.query(sqlQuery, (err, rows, fields) => {
+    if(err){
+      console.log(err)
+      error(res, "sql error")
+      return
+    }
+    
+    console.log(rows)
+    res.json(rows[0].result)
+    return
+	})
+})
+
+
+// get total score
+router.get('/score', (req, res, next) => {
+
+	var uidx = -1
+  var stage = -1
+
+  if(!Object.keys(req.query).includes("uidx")){
+    error(res, "query error")
+    return
+  }
+  if(Object.keys(req.query).includes("stage")){
+    stage = req.query.stage
+  }
+
+	uidx = req.query.uidx
+
+  sqlQuery = `select sum(score) result from data where user_idx=${uidx}`
+  if(stage != -1)
+    sqlQuery += ` and stage_id=${stage}`
+  
+  console.log(sqlQuery)
+	conn.query(sqlQuery, (err, rows, fields) => {
+    if(err){
+      console.log(err)
+      error(res, "sql error")
+      return
+    }
+    
+    console.log(rows)
+    res.json(rows[0].result)
+    return
+	})
+})
+
+
+
+
+
+
+
+
+
+
+
+
 // Enroll Rank Data
 router.post('/', (req,res,next) =>{
 
   var user_idx = -1;
   var stage_id = -1;
-  var elapsed_time = -1;
+  var distance = -1;
+  var calorie = -1;
+  var score = -1;
   // body: {
   //   user_idx: [int]
   //   stage_id: [int]
-  //   elapsed_time: [int]
+  //   distance: [int]
+  //   calorie: [int]
+  //   score: [int]
   // }
   if(!Object.keys(req.body).includes("user_idx") || 
       !Object.keys(req.body).includes("stage_id") || 
-        !Object.keys(req.body).includes("elapsed_time")){
+        !Object.keys(req.body).includes("distance") || 
+          !Object.keys(req.body).includes("calorie") ||
+            !Object.keys(req.body).includes("score")){
     error(res, "query error")
     return
   }
   user_idx = Number(req.body.user_idx);
   stage_id = Number(req.body.stage_id);
-  elapsed_time = Number(req.body.elapsed_time);
+  distance = Number(req.body.distance);
+  calorie = Number(req.body.calorie);
+  score = Number(req.body.score);
 
   console.log(user_idx)
   console.log(stage_id)
-  console.log(elapsed_time)
+  console.log(distance)
+  console.log(calorie)
+  console.log(score)
 
-  if(isNaN(user_idx) || isNaN(stage_id) || isNaN(elapsed_time)){
+
+  if(isNaN(user_idx) || isNaN(stage_id) || isNaN(distance) || isNaN(calorie) || isNaN(score)){
     error(res, "query error")
     return
   }
 
-  conn.query(`insert into data(user_idx, stage_id, elapsed_time)
-    values(${user_idx},${stage_id},${elapsed_time});`, (err, rows) => {
+  conn.query(`insert into data(user_idx, stage_id, distance, calorie, score)
+    values(${user_idx},${stage_id},${distance},${calorie},${score});`, (err, rows) => {
     if(err){
       console.log(err)
       error(res, "sql error")
