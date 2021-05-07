@@ -64,9 +64,9 @@ router.get('/', async (req, res, next) => {
   }
 
   // send rank data table
-  conn.query(`select g1.c_date, u.user_name, g1.stage_id, g1.elapsed_time 
-                from (select * from data) g1 join user u on g1.user_idx = u.idx
-                  order by ${column} ${order};`, (err, rows, fields) => {
+  conn.query(`select g1.c_date, u.user_name, g1.stage_id, g1.distance, g1.calorie, g1.score 
+    from (select * from data) g1 join user u on g1.user_idx = u.idx
+      order by ${column} ${order};`, (err, rows, fields) => {
     if(err){
       console.log(err)
       error(res, "sql error")
