@@ -28,9 +28,11 @@ router.get('/', async (req, res, next) => {
 
   var column = "";
   var order = "";
+  var stage = -1;
   // query:
   // - `c`: (mandatory) column to order
   // - `o`: (mandatory) "desc" or "asc" (descending, ascending order)
+  // - `stage`: (optional) Distinction "stage"
   if(!Object.keys(req.query).includes("c") || !Object.keys(req.query).includes("o")){
     error(res, "query error")
     return
@@ -38,6 +40,10 @@ router.get('/', async (req, res, next) => {
   column = req.query.c
   order = req.query.o
 
+  if(Object.keys(req.query).includes("stage"))
+    stage = req.query.stage
+
+  console.log(stage)
   
   // check column is valid
   var fields = await getFeatures()
@@ -63,10 +69,16 @@ router.get('/', async (req, res, next) => {
     return
   }
 
+  var sqlQuery = `select g1.c_date, u.user_name, g1.stage_id, g1.distance, g1.calorie, g1.score 
+    from (select * from data) g1 join user u on g1.user_idx = u.idx `
+      
+  if(stage != -1)
+    sqlQuery += ` where g1.stage_id = ${stage} `
+
+  sqlQuery += ` order by ${column} ${order} `
+  
   // send rank data table
-  conn.query(`select g1.c_date, u.user_name, g1.stage_id, g1.distance, g1.calorie, g1.score 
-    from (select * from data) g1 join user u on g1.user_idx = u.idx
-      order by ${column} ${order};`, (err, rows, fields) => {
+  conn.query(sqlQuery, (err, rows, fields) => {
     if(err){
       console.log(err)
       error(res, "sql error")
@@ -114,7 +126,9 @@ router.get('/distance', (req, res, next) => {
     }
     
     console.log(rows)
-    res.json(rows[0].result)
+    res.json({
+      "total_distance": rows[0].result
+    })
     return
 	})
 })
@@ -149,7 +163,9 @@ router.get('/calorie', (req, res, next) => {
     }
     
     console.log(rows)
-    res.json(rows[0].result)
+    res.json({
+      "total_calorie": rows[0].result
+    })
     return
 	})
 })
@@ -184,7 +200,9 @@ router.get('/score', (req, res, next) => {
     }
     
     console.log(rows)
-    res.json(rows[0].result)
+    res.json({
+      "total_score": rows[0].result
+    })
     return
 	})
 })

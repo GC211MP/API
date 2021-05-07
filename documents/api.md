@@ -11,7 +11,7 @@
     {
         "user_id": "",
         "user_idx": 0, // Use to get rank data
-        "user_name": "",
+        "user_name": ""
     }
     ```
 
@@ -25,7 +25,7 @@
     {
         "user_id": "",         // mandatory
         "user_name": "",       // mandatory
-        "user_password": "",   // mandatory
+        "user_password": ""    // mandatory
     }
     ```
  - response
@@ -40,7 +40,7 @@
     {
         "user_id": "",         // mandatory
         "user_name": "",
-        "user_password": "",
+        "user_password": ""
     }
     ```
  - response
@@ -57,10 +57,11 @@
 ## DATA
 
 **GET: `/data?c=""&o=""`**
- - Give all data of rank table
+ - Give all data of data table
  - parameter
    - `c`: (mandatory) column to order
    - `o`: (mandatory) "desc" or "asc" (descending, ascending order)
+   - `stage`: (optional) Distinction "stage"
  - response
     ```
     [
@@ -68,12 +69,53 @@
             "c_date": DateTime(),
             "user_name": "",
             "stage_id": 0,
-            "elapsed_time": 0,
+            "distance": 0,
+            "calorie": 0,
+            "score": 0
         },
         ...
     ]
     ```
 
+<br>
+
+**GET: `/data/distance?uidx=0&stage=0`**
+ - Give tatal distance data of data table
+ - parameter
+   - `uidx`: (mandatory) user index
+   - `stage`: (optional) Distinction "stage"
+ - response
+    ```
+    {   
+        "total_distance": 0000
+    }
+    ```
+<br>
+
+**GET: `/data/calorie?uidx=0&stage=0`**
+ - Give total calorie data of data table
+ - parameter
+   - `uidx`: (mandatory) user index
+   - `stage`: (optional) Distinction "stage"
+ - response
+    ```
+    {   
+        "total_calorie": 0000
+    }
+    ```
+<br>
+
+**GET: `/data/score?uidx=0&stage=0`**
+ - Give total score data of data table
+ - parameter
+   - `uidx`: (mandatory) user index
+   - `stage`: (optional) Distinction "stage"
+ - response
+    ```
+    {   
+        "total_score": 0000
+    }
+    ```
 <br>
 
 **POST: `/data`**
@@ -83,7 +125,9 @@
     {
         "user_idx": 0,         // mandatory
         "stage_id": 0,         // mandatory
-        "elapsed_time": 0,     // mandatory
+        "distance": 0,         // mandatory
+        "calorie": 0,          // mandatory
+        "score": 0             // mandatory
     }
     ```
 
