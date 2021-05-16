@@ -208,6 +208,41 @@ router.get('/score', (req, res, next) => {
 })
 
 
+// get total score
+router.get('/scoretop', (req, res, next) => {
+
+	var uidx = -1
+  var stage = -1
+
+  if(!Object.keys(req.query).includes("uidx")){
+    error(res, "query error")
+    return
+  }
+  if(Object.keys(req.query).includes("stage")){
+    stage = req.query.stage
+  }
+
+	uidx = req.query.uidx
+
+  sqlQuery = `select max(score) result from data where user_idx=${uidx}`
+  if(stage != -1)
+    sqlQuery += ` and stage_id=${stage}`
+  
+  console.log(sqlQuery)
+	conn.query(sqlQuery, (err, rows, fields) => {
+    if(err){
+      console.log(err)
+      error(res, "sql error")
+      return
+    }
+    
+    console.log(rows)
+    res.json({
+      "top_score": rows[0].result
+    })
+    return
+	})
+})
 
 
 

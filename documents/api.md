@@ -118,6 +118,19 @@
     ```
 <br>
 
+**GET: `/data/scoretop?uidx=0&stage=0`**
+ - Give top score data of data table
+ - parameter
+   - `uidx`: (mandatory) user index
+   - `stage`: (optional) Distinction "stage"
+ - response
+    ```
+    {   
+        "top_score": 0000
+    }
+    ```
+<br>
+
 **POST: `/data`**
  - Add user record data
  - body
