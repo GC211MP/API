@@ -1,16 +1,7 @@
 var express = require('express');
 var router = express.Router();
 
-var execute = (query) => new Promise(resolve => {
-  conn.query(query, (err,rows) => {
-    if(err){
-      console.log(err)
-      resolve(false)
-    } else
-      resolve(true)
-  })
-})
-
+// Syncronize to control MySQL
 var getFeatures = () => new Promise(resolve => {
   conn.query(`select * from data;`, (err,rows,fields) => {
     if(err){
@@ -40,6 +31,7 @@ router.get('/', async (req, res, next) => {
   column = req.query.c
   order = req.query.o
 
+  // if query have "stage", save data to variable.
   if(Object.keys(req.query).includes("stage"))
     stage = req.query.stage
 
@@ -69,6 +61,7 @@ router.get('/', async (req, res, next) => {
     return
   }
 
+  // Build SQL DML
   var sqlQuery = `select g1.c_date, u.user_name, g1.stage_id, g1.distance, g1.calorie, g1.score 
     from (select * from data) g1 join user u on g1.user_idx = u.idx `
       
@@ -78,22 +71,15 @@ router.get('/', async (req, res, next) => {
   sqlQuery += ` order by ${column} ${order} `
   
   // send rank data table
-  conn.query(sqlQuery, (err, rows, fields) => {
+  conn.query(sqlQuery, (err, rows) => {
     if(err){
       console.log(err)
       error(res, "sql error")
       return
     }
     res.json(rows)
-    return
   })
 });
-
-
-
-
-
-
 
 
 
@@ -103,6 +89,9 @@ router.get('/distance', (req, res, next) => {
 	var uidx = -1
   var stage = -1
 
+  // query:
+  // - `uidx`: (mandatory) user index
+  // - `stage`: (optional) Distinction "stage"
   if(!Object.keys(req.query).includes("uidx")){
     error(res, "query error")
     return
@@ -113,7 +102,8 @@ router.get('/distance', (req, res, next) => {
 
 	uidx = req.query.uidx
 
-  sqlQuery = `select sum(distance) result from data where user_idx=${uidx}`
+  // Build SQL DML
+  let sqlQuery = `select sum(distance) result from data where user_idx=${uidx}`
   if(stage != -1)
     sqlQuery += ` and stage_id=${stage}`
   
@@ -129,7 +119,7 @@ router.get('/distance', (req, res, next) => {
     res.json({
       "total_distance": rows[0].result
     })
-    return
+    
 	})
 })
 
@@ -140,6 +130,9 @@ router.get('/calorie', (req, res, next) => {
 	var uidx = -1
   var stage = -1
 
+  // query:
+  // - `uidx`: (mandatory) user index
+  // - `stage`: (optional) Distinction "stage"
   if(!Object.keys(req.query).includes("uidx")){
     error(res, "query error")
     return
@@ -149,8 +142,9 @@ router.get('/calorie', (req, res, next) => {
   }
 
 	uidx = req.query.uidx
-
-  sqlQuery = `select sum(calorie) result from data where user_idx=${uidx}`
+  
+  // Build SQL DML
+  let sqlQuery = `select sum(calorie) result from data where user_idx=${uidx}`
   if(stage != -1)
     sqlQuery += ` and stage_id=${stage}`
   
@@ -166,7 +160,7 @@ router.get('/calorie', (req, res, next) => {
     res.json({
       "total_calorie": rows[0].result
     })
-    return
+    
 	})
 })
 
@@ -177,6 +171,9 @@ router.get('/score', (req, res, next) => {
 	var uidx = -1
   var stage = -1
 
+  // query:
+  // - `uidx`: (mandatory) user index
+  // - `stage`: (optional) Distinction "stage"
   if(!Object.keys(req.query).includes("uidx")){
     error(res, "query error")
     return
@@ -187,7 +184,8 @@ router.get('/score', (req, res, next) => {
 
 	uidx = req.query.uidx
 
-  sqlQuery = `select sum(score) result from data where user_idx=${uidx}`
+  // Build SQL DML
+  let sqlQuery = `select sum(score) result from data where user_idx=${uidx}`
   if(stage != -1)
     sqlQuery += ` and stage_id=${stage}`
   
@@ -203,7 +201,7 @@ router.get('/score', (req, res, next) => {
     res.json({
       "total_score": rows[0].result
     })
-    return
+    
 	})
 })
 
@@ -214,6 +212,9 @@ router.get('/scoretop', (req, res, next) => {
 	var uidx = -1
   var stage = -1
 
+  // query:
+  // - `uidx`: (mandatory) user index
+  // - `stage`: (optional) Distinction "stage"
   if(!Object.keys(req.query).includes("uidx")){
     error(res, "query error")
     return
@@ -224,7 +225,8 @@ router.get('/scoretop', (req, res, next) => {
 
 	uidx = req.query.uidx
 
-  sqlQuery = `select max(score) result from data where user_idx=${uidx}`
+  // Build SQL DML
+  let sqlQuery = `select max(score) result from data where user_idx=${uidx}`
   if(stage != -1)
     sqlQuery += ` and stage_id=${stage}`
   
@@ -240,16 +242,9 @@ router.get('/scoretop', (req, res, next) => {
     res.json({
       "top_score": rows[0].result
     })
-    return
+    
 	})
 })
-
-
-
-
-
-
-
 
 
 
@@ -282,11 +277,11 @@ router.post('/', (req,res,next) =>{
   calorie = Number(req.body.calorie);
   score = Number(req.body.score);
 
-  console.log(user_idx)
-  console.log(stage_id)
-  console.log(distance)
-  console.log(calorie)
-  console.log(score)
+  // console.log(user_idx)
+  // console.log(stage_id)
+  // console.log(distance)
+  // console.log(calorie)
+  // console.log(score)
 
 
   if(isNaN(user_idx) || isNaN(stage_id) || isNaN(distance) || isNaN(calorie) || isNaN(score)){
@@ -294,6 +289,7 @@ router.post('/', (req,res,next) =>{
     return
   }
 
+  // Insert data to data table
   conn.query(`insert into data(user_idx, stage_id, distance, calorie, score)
     values(${user_idx},${stage_id},${distance},${calorie},${score});`, (err, rows) => {
     if(err){
@@ -310,13 +306,13 @@ router.post('/', (req,res,next) =>{
 
 
 
+// Handling error response
 var error = (res, msg) => {
   res.statusCode = 400;
   res.json({
     error: msg
   })
-  return
+  
 }
-
 
 module.exports = router;

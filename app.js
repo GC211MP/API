@@ -3,7 +3,7 @@ var path = require('path');
 var cookieParser = require('cookie-parser');
 var logger = require('morgan');
 
-
+// Load files to be routed
 var userRouter = require('./routes/user');
 var dataRouter = require('./routes/data');
 var showRouter = require('./routes/show');
@@ -24,12 +24,13 @@ global.conn = mysql.createConnection(
   }
 )
 
+// Connect to MySQL Server
 conn.connect((err) => {
     if(err != null) console.log("Cannot connect MySQL Server!: \n" + err)
     else console.log("MySQL Connection Successful!")
   });
 
-
+// Load middlewares
 app.use(logger('dev'));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));

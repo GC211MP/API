@@ -14,8 +14,7 @@ router.get('/', function(req, res, next) {
 
   uid = req.query.uid;
 
-  console.log(`select user_id, idx as user_idx, user_name from user where user_id='${uid}';`)
-
+  // Find user data and send it
   conn.query(`select user_id, idx as user_idx, user_name from user where user_id='${uid}';`, (err, rows, fields) => {
 
     if(err){
@@ -30,14 +29,14 @@ router.get('/', function(req, res, next) {
     } else {
       error(res, "query error")
     }
-    return;
+    
   })
 });
 
 
 
 // Add User
-router.post('/', (req,res,next) =>{
+router.post('/', (req,res,next) => {
 
   var user_id = "";
   var user_name = "";
@@ -98,7 +97,7 @@ router.post('/', (req,res,next) =>{
         res.json({
           "result": "success",
         })
-        return
+        
       })
     })
   })
@@ -131,7 +130,7 @@ router.patch("/", async (req, res, next) => {
   user_name = req.body.user_name;
   user_password = req.body.user_password;
 
-
+  // Make syncronize function for checking name query
   var checkName = () => new Promise(resolve => {
     conn.query(`select user_name from user where user_name="${user_name}"`, (err, rows) => {
       if(err) resolve(false)
@@ -140,6 +139,7 @@ router.patch("/", async (req, res, next) => {
     })
   })
 
+  // Make syncronize function for execute query
   var update = (query) => new Promise(resolve => {
     conn.query(query, (err,rows) => {
       if(err){
@@ -173,21 +173,23 @@ router.patch("/", async (req, res, next) => {
     }
   }
 
+  // Send success response
   res.statusCode = 200
   res.json({
     result: "success"
   })
-  return
+  
 })
 
 
 
+// Handling error response
 var error = (res, msg) => {
   res.statusCode = 400;
   res.json({
     error: msg
   })
-  return
+  
 }
 
 module.exports = router;
