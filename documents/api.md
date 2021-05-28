@@ -80,7 +80,7 @@
 <br>
 
 **GET: `/data/distance?uidx=0&stage=0`**
- - Give tatal distance data of data table
+ - Give total distance data of data table
  - parameter
    - `uidx`: (mandatory) user index
    - `stage`: (optional) Distinction "stage"

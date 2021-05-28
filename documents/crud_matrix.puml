@@ -10,8 +10,13 @@ title
   |= Add User                     |     C |       |
   |= Load User Data               |     R |       |
   |= Modify User name or password |     U |       |
-  |= Load rank data               |       |    R  |
-  |= Enroll rank data             |     R |    C  |
+  | | | |
+  |= Give all data                |       |    R  |
+  |= Give total distance data     |       |    R  |
+  |= Give total calorie data      |       |    R  |
+  |= Give total score data        |       |    R  |
+  |= Give top score data          |       |    R  |
+  |= Enroll rank data             |       |    C  |
   
 end title
 
